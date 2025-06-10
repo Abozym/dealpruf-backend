@@ -1,17 +1,30 @@
+import openai
+import os
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 def analyze_lease(text):
-    return {
-        "summary": {
-            "lease_term": "Jan 1, 2024 – Dec 31, 2028",
-            "renewal_option": "1 x 5-year",
-            "monthly_rent": "$5,000 (+3%/yr)",
-            "parties": "XYZ Holdings / ABC Properties"
-        },
-        "red_flags": [
-            { "issue": "No termination clause defined", "risk": "HIGH" },
-            { "issue": "CAM clause vague (‘reasonable’)", "risk": "MEDIUM" }
+    prompt = f"""
+You are a commercial real estate assistant. Extract key terms from this lease and identify red flags.
+
+Lease:
+{text}
+
+Return JSON with:
+- summary: lease_term, renewal_option, monthly_rent, parties
+- red_flags: array of {{"issue": "...", "risk": "HIGH|MEDIUM|LOW"}}
+- score (0–100)
+- zoning_notes: bullet points
+"""
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "You extract structured lease terms and risks."},
+            {"role": "user", "content": prompt}
         ],
-        "score": 72,
-        "zoning_notes": [
-            "Use is general office; verify in C3 zoning district"
-        ]
-    }
+        temperature=0.3
+    )
+
+    reply = response.choices[0].message.content
+    return eval(reply)  # Replace with json.loads() if using valid JSON formatting
