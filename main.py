@@ -20,13 +20,24 @@ app.add_middleware(
 
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
-    file_id = f"{uuid.uuid4()}.pdf"
-    file_path = Path("uploads") / file_id
+    try:
+        file_id = f"{uuid.uuid4()}.pdf"
+        file_path = Path("uploads") / file_id
 
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
 
-    text = extract_text_from_pdf(file_path)
-    result = analyze_lease(text)
+        print("✅ Saved file:", file_path)
 
-    return JSONResponse(content=result)
+        text = extract_text_from_pdf(file_path)
+        print("📄 Extracted text length:", len(text))
+
+        result = analyze_lease(text)
+        print("🤖 AI result:", result)
+
+        return JSONResponse(content=result)
+
+    except Exception as e:
+        print("❌ ERROR:", str(e))
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
