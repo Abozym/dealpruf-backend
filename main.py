@@ -24,6 +24,9 @@ async def analyze(file: UploadFile = File(...)):
         file_id = f"{uuid.uuid4()}.pdf"
         file_path = Path("uploads") / file_id
 
+        # 🔥 This line ensures the uploads/ folder exists
+        Path("uploads").mkdir(parents=True, exist_ok=True)
+
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
@@ -40,4 +43,3 @@ async def analyze(file: UploadFile = File(...)):
     except Exception as e:
         print("❌ ERROR:", str(e))
         return JSONResponse(status_code=500, content={"error": str(e)})
-
