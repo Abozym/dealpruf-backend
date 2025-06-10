@@ -18,7 +18,7 @@ Return JSON with:
 """
 
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You extract structured lease terms and risks."},
             {"role": "user", "content": prompt}
