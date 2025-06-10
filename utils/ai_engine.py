@@ -1,7 +1,7 @@
-import openai
+from openai import OpenAI
 import os
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def analyze_lease(text):
     prompt = f"""
@@ -17,7 +17,7 @@ Return JSON with:
 - zoning_notes: bullet points
 """
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You extract structured lease terms and risks."},
@@ -26,5 +26,4 @@ Return JSON with:
         temperature=0.3
     )
 
-    reply = response.choices[0].message.content
-    return eval(reply)  # Replace with json.loads() if using valid JSON formatting
+    return eval(response.choices[0].message.content)
