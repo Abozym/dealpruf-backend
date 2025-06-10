@@ -1,6 +1,4 @@
-
 def analyze_lease(text):
-    # Simulated output - replace with OpenAI call
     return {
         "summary": {
             "lease_term": "Jan 1, 2024 – Dec 31, 2028",
