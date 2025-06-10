@@ -20,10 +20,17 @@ Return JSON with:
 - red_flags: array of {{ "issue": "...", "risk": "HIGH|MEDIUM|LOW" }}
 - score (0–100)
 - zoning_notes: bullet points
-- revision_suggestions: array of concise improvement ideas, like:
-  - "Add indemnification clause."
-  - "Clarify CAM expense responsibilities."
-  - "Include tenant right to early termination."
+- After the red flags section, provide a field called "revision_suggestions".
+
+These should NOT just repeat the red flags. Instead, offer practical, clause-level language suggestions or legal best practices that would reduce the risks.
+
+Each suggestion should begin with an action verb and explain how to improve or reword the lease.
+
+Examples:
+- "Add a renewal clause specifying a 1-year auto-renewal unless terminated by either party in writing."
+- "Include a specific CAM cap or fixed percentage to prevent unpredictable charges."
+- "Define insurance requirements with policy limits and required coverages like general liability and property loss."
+
 
 When identifying red flags, check for:
 - missing or vague lease renewal clauses
