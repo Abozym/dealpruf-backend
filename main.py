@@ -1,4 +1,12 @@
+
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from utils.pdf_reader import extract_text_from_pdf
+from utils.ai_engine import analyze_lease
+import shutil
+import uuid
+from pathlib import Path
 
 app = FastAPI()
 
@@ -9,13 +17,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import JSONResponse
-from utils.pdf_reader import extract_text_from_pdf
-from utils.ai_engine import analyze_lease
-import shutil
-import uuid
-from pathlib import Path
 
 app = FastAPI()
 
