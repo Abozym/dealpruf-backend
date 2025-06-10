@@ -20,6 +20,10 @@ Return JSON with:
 - red_flags: array of {{ "issue": "...", "risk": "HIGH|MEDIUM|LOW" }}
 - score (0–100)
 - zoning_notes: bullet points
+- revision_suggestions: array of concise improvement ideas, like:
+  - "Add indemnification clause."
+  - "Clarify CAM expense responsibilities."
+  - "Include tenant right to early termination."
 
 When identifying red flags, check for:
 - missing or vague lease renewal clauses
