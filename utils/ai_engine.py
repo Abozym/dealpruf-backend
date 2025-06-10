@@ -12,10 +12,26 @@ Lease:
 {text}
 
 Return JSON with:
-- summary: lease_term, renewal_option, monthly_rent, parties
-- red_flags: array of {{"issue": "...", "risk": "HIGH|MEDIUM|LOW"}}
+- summary:
+  - lease_term
+  - renewal_option
+  - monthly_rent
+  - parties: {{ landlord, tenant }}
+- red_flags: array of {{ "issue": "...", "risk": "HIGH|MEDIUM|LOW" }}
 - score (0–100)
 - zoning_notes: bullet points
+
+When identifying red flags, check for:
+- missing or vague lease renewal clauses
+- missing or unclear termination conditions
+- no mention of insurance requirements
+- CAM or maintenance ambiguity
+- subletting/assignment restrictions
+- improvement reimbursement terms
+- lack of tax responsibility definition
+- lack of dispute resolution clauses
+- harvest rights / post-lease access
+- zoning or land use conflict potential
 """
 
     response = client.chat.completions.create(
