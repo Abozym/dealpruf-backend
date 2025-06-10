@@ -1,8 +1,8 @@
-from openai import OpenAI
+import openai
 import os
 import json
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def analyze_lease(text):
     prompt = f"""
@@ -27,10 +27,11 @@ Return JSON with:
         temperature=0.3
     )
 
-     content = response.choices[0].message.content
+    content = response.choices[0].message.content
 
     try:
         return json.loads(content)
     except json.JSONDecodeError:
-        print("❌ JSON decode failed. Raw content from GPT:\n", content)
+        print("❌ JSON decode failed. Raw content:\n", content)
         return {"error": "GPT response was not valid JSON"}
+
