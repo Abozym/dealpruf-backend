@@ -1,4 +1,14 @@
+from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or restrict to your frontend domain later
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from utils.pdf_reader import extract_text_from_pdf
