@@ -12,13 +12,11 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Or restrict to your frontend domain later
+    allow_origins=["*"],  # You can later restrict to your frontend domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-app = FastAPI()
 
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
